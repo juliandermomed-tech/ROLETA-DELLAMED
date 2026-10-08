@@ -1,0 +1,399 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Roleta Dellamed</title><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#f5f7f7; --surface:#ffffff; --line:#e1e6e6; --grid:#edf1f1;
+  --ink:#0f1a1c; --ink2:#4b5a5d; --muted:#7c8a8c;
+  --accent:#0e7c86; --accent-soft:#e2f2f3;
+  --s1:#2a78d6; --good:#1f8a4c; --good-soft:#e3f3ea; --bad:#d03b3b; --bad-soft:#fbe7e6; --warn:#b77900; --warn-soft:#fbf0d9;
+  --ret:#7a5cc2; --ret-soft:#efe9fa;
+  --sans:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;
+  --bg:#0f1416; --surface:#171e20; --line:#263033; --grid:#1f282a;
+  --ink:#eef3f3; --ink2:#b3c0c2; --muted:#83918f;
+  --accent:#3fb6bf; --accent-soft:#16373a;
+  --s1:#3987e5; --good:#3fbf74; --good-soft:#153524; --bad:#ec6a69; --bad-soft:#3d1c1c; --warn:#e0a53a; --warn-soft:#3a2d12;
+  --ret:#a48ef0; --ret-soft:#2a2342;}}
+:root[data-theme="dark"]{color-scheme:dark;
+  --bg:#0f1416; --surface:#171e20; --line:#263033; --grid:#1f282a;
+  --ink:#eef3f3; --ink2:#b3c0c2; --muted:#83918f;
+  --accent:#3fb6bf; --accent-soft:#16373a;
+  --s1:#3987e5; --good:#3fbf74; --good-soft:#153524; --bad:#ec6a69; --bad-soft:#3d1c1c; --warn:#e0a53a; --warn-soft:#3a2d12;
+  --ret:#a48ef0; --ret-soft:#2a2342;}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:14px;line-height:1.45;padding-inline:16px;padding-block:24px 48px}
+.wrap{max-width:1180px;margin:0 auto;display:grid;gap:20px}
+header{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px}
+.eyebrow{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--accent);font-weight:600}
+h1{font-size:26px;margin:4px 0 2px;font-weight:700;letter-spacing:-.01em;text-wrap:balance}
+.sub{color:var(--ink2);margin:0}
+.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.seg{display:inline-flex;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:3px}
+.seg button{font:inherit;font-size:13px;border:0;background:none;color:var(--ink2);padding:6px 10px;border-radius:6px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--accent-soft);color:var(--ink);font-weight:600}
+.seg button:focus-visible,select:focus-visible,th button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+select{font:inherit;font-size:13px;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:7px 10px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:grid;gap:4px}
+.kpi .lab{font-size:12px;color:var(--ink2);font-weight:500}
+.kpi .val{font-size:24px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.kpi .note{font-size:12px;color:var(--muted)}
+.kpi.hero{background:var(--accent-soft);border-color:transparent}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;min-width:0}
+.card h2{font-size:15px;margin:0 0 2px;font-weight:600}
+.card .hint{font-size:12px;color:var(--muted);margin:0 0 12px}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12px;color:var(--ink2);margin-bottom:8px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+svg text{fill:var(--muted);font-family:var(--mono);font-size:10.5px}
+.alert{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--bad);border-radius:10px;padding:14px 16px;display:grid;gap:10px}
+.alert h2{margin:0;font-size:15px}
+.alert p{margin:0;color:var(--ink2);max-width:80ch}
+.retry{display:grid;gap:6px}
+.retry div{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;font-size:13px}
+.retry b{font-weight:600;min-width:220px}
+.retry span{color:var(--ink2);font-variant-numeric:tabular-nums}
+.hbar{display:grid;gap:10px}
+.hrow{display:grid;grid-template-columns:minmax(110px,170px) 1fr auto;gap:10px;align-items:center;font-size:13px}
+.hrow .nm{color:var(--ink);overflow-wrap:anywhere}
+.track{height:14px;background:var(--grid);border-radius:4px;display:flex;overflow:hidden;gap:2px}
+.track span{height:100%;display:block}
+.hrow .v{font-family:var(--mono);font-size:12px;color:var(--ink2);text-align:right;white-space:nowrap}
+.tblwrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:760px}
+th{text-align:left;font-weight:600;color:var(--ink2);font-size:12px;border-bottom:1px solid var(--line);padding:8px 10px}
+th button{all:unset;cursor:pointer}
+td{padding:8px 10px;border-bottom:1px solid var(--grid);vertical-align:top}
+td.num{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+td.mono{white-space:nowrap;font-family:var(--mono);font-size:12px;color:var(--ink2)}
+td.utm{font-family:var(--mono);font-size:11.5px;color:var(--ink2);overflow-wrap:anywhere;max-width:260px}
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.pill::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.p-ok{background:var(--good-soft);color:var(--good)} .p-bad{background:var(--bad-soft);color:var(--bad)}
+.p-wait{background:var(--warn-soft);color:var(--warn)} .p-ret{background:var(--ret-soft);color:var(--ret)}
+#tip{position:fixed;pointer-events:none;background:var(--ink);color:var(--bg);font-size:12px;padding:7px 9px;border-radius:6px;line-height:1.4;z-index:9;max-width:240px}
+#tip b{font-weight:600}
+.isrep td{opacity:.55}.repnote{font-size:11px;color:var(--muted);margin-top:3px;white-space:nowrap}
+.foot{font-size:12px;color:var(--muted)}
+@media (max-width:520px){h1{font-size:22px}.hrow{grid-template-columns:100px 1fr auto}.retry b{min-width:0}}
+</style>
+<style>
+[hidden]{display:none!important}
+.sync{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:grid;gap:6px}
+.syncrow{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px}
+.synctxt{font-size:12.5px;color:var(--ink2);flex:1;min-width:200px}
+.syncrow button{font:inherit;font-size:13px;font-weight:600;background:var(--accent);color:var(--surface);border:0;border-radius:8px;padding:7px 14px;cursor:pointer}
+.syncrow button[disabled]{opacity:.55;cursor:default}
+.syncrow button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.syncrow a{font-size:13px;color:var(--accent)}
+.syncerr{margin:0;font-size:12.5px;color:var(--bad)}
+.retry .grp{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;font-weight:600;margin-top:6px}
+.cupom{font-family:var(--mono);font-size:11.5px;color:var(--ink2);white-space:nowrap}
+.rl{font-size:11.5px;font-weight:600;padding:2px 7px;border-radius:5px;white-space:nowrap}
+.rl-a{background:var(--accent-soft);color:var(--accent)} .rl-b{background:var(--warn-soft);color:var(--warn)} .rl-x{background:var(--grid);color:var(--ink2)}
+.empty{background:var(--surface);border:1px dashed var(--line);border-radius:10px;padding:28px 20px;display:grid;gap:8px;justify-items:start}
+.empty h2{margin:0;font-size:17px}
+.empty p{margin:0;color:var(--ink2);max-width:70ch}
+.empty code{font-family:var(--mono);font-size:12px;background:var(--grid);padding:1px 5px;border-radius:4px}
+.prizes{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px;width:100%;margin-top:6px}
+.prize{border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:13px}
+.prize b{display:block;margin-bottom:4px}
+.prize div{display:flex;justify-content:space-between;gap:10px;font-family:var(--mono);font-size:12px;color:var(--ink2);padding:2px 0}
+</style>
+
+<div class="wrap">
+  <header>
+    <div>
+      <div class="eyebrow">Roleta de cupons · dermomed.com.br</div>
+      <h1>Pedidos da Roleta Dellamed</h1>
+      <p class="sub" id="period">Carregando a planilha…</p>
+    </div>
+    <div class="filters">
+      <div class="seg" role="group" aria-label="Situação">
+        <button aria-pressed="true" data-f="all">Todos</button>
+        <button aria-pressed="false" data-f="ok">Aprovados</button>
+        <button aria-pressed="false" data-f="bad">Cancelados</button>
+      </div>
+      <select id="f-rl" aria-label="Cupom"><option value="">Todos os cupons</option></select>
+    </div>
+  </header>
+
+  <section class="sync" id="sync"></section>
+
+  <section class="empty" id="empty" hidden>
+    <h2>Ainda não há pedidos na planilha</h2>
+    <p>Cole os pedidos na planilha “Controle Roleta Dellamed — Pedidos”, com as colunas <code>#</code>, <code>Situação</code>, <code>Data</code>, <code>Cliente</code>, <code>UTM/Marketplace</code>, <code>Pagamento</code>, <code>Envio</code>, <code>Total (R$)</code> e <code>Cupom</code>, e clique em Atualizar agora. O dashboard reconhece os 4 cupons abaixo.</p>
+    <div class="prizes" id="prizes"></div>
+  </section>
+
+  <div id="main" hidden>
+    <div class="wrap" style="padding:0">
+      <section class="kpis" id="kpis"></section>
+      <section class="alert" id="alert" hidden></section>
+      <div class="grid2">
+        <div class="card">
+          <h2>Faturamento por dia</h2>
+          <p class="hint">Valor dos pedidos por data de criação</p>
+          <div class="legend"><span><i style="background:var(--good)"></i>Aprovado</span><span><i style="background:var(--warn)"></i>Aguardando / devolvido</span><span><i style="background:var(--bad)"></i>Cancelado</span></div>
+          <div id="daily"></div>
+        </div>
+        <div class="card">
+          <h2>Pedidos por prêmio</h2>
+          <p class="hint">Cupom sorteado · barra = valor do pedido, texto = aprovado / total</p>
+          <div class="legend"><span><i style="background:var(--good)"></i>Aprovado</span><span><i style="background:var(--warn)"></i>Aguardando / devolvido</span><span><i style="background:var(--bad)"></i>Cancelado</span></div>
+          <div class="hbar" id="porPremio"></div>
+        </div>
+        <div class="card">
+          <h2>Retorno por cupom</h2>
+          <p class="hint">Pedidos aprovados · faturamento para cada R$ 1 de desconto dado</p>
+          <div class="hbar" id="porRoleta"></div>
+        </div>
+        <div class="card">
+          <h2>Aprovação por meio de pagamento</h2>
+          <p class="hint">Pedidos aprovados ÷ pedidos, sem as tentativas repetidas</p>
+          <div class="hbar" id="pagto"></div>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Pedidos</h2>
+        <p class="hint" id="tblhint"></p>
+        <div class="tblwrap"><table>
+          <thead><tr id="thead"></tr></thead>
+          <tbody id="tbody"></tbody>
+        </table></div>
+      </div>
+    </div>
+  </div>
+  <p class="foot">Fonte: planilha “Controle Roleta Dellamed — Pedidos”, publicada na Web e lida ao abrir a página. “Aprovado” = Pago, Faturado, Enviado ou Entregue. Desconto concedido = valor do prêmio de cada pedido aprovado. Tentativas repetidas: cancelado de cliente com outro pedido não cancelado em até 72h, ou vários cancelados do mesmo cliente sem nenhuma compra (conta só o mais recente); ficam na tabela, fora dos totais.</p>
+</div>
+<div id="tip" hidden></div>
+
+<script>
+/* Cupons da roleta — edite aqui se um código mudar */
+const CUPONS = {
+  MOVEBNSP:{premio:5}, VIVAD4YS:{premio:10}, CUIDAN68S:{premio:15}, DERMODJ4V:{premio:20}
+};
+const SEED = "#,Situação,Data,Cliente,UTM/Marketplace,Pagamento,Envio,Total (R$),Cupom\n57437,Enviado,27/09/26 11:10,SANDRA LUIZA NUNES CASEIRO,GoogleMerchant,Pix,Frenet (Sedex),\"532,59\",CUIDAN68S\n57397,Faturado,25/09/26 13:11,Gislaine falcao,GoogleMerchant,Pix,Frenet (Mandaê Econômico),\"572,82\",MOVEBNSP\n57396,Enviado,25/09/26 12:56,Luiz Carlos Trevisan,GoogleMerchant,Pix,Motoboy,\"388,49\",MOVEBNSP\n57358,Entregue,23/09/26 21:16,Gisele Coriliano,GoogleMerchant,Pix,Frenet (Mandaê Econômico),\"1.102,68\",VIVAD4YS\n57347,Cancelado,23/09/26 17:07,Luiz Lisboa,,Pagali,Motoboy,\"554,99\",VIVAD4YS\n57345,Enviado,23/09/26 16:26,ANA KARLA DA COSTA PEREIRA,,Pagali,Frenet (Jamef),\"1.430,45\",DERMODJ4V\n57261,Cancelado,20/09/26 20:30,Luiz Lisboa,,Appmax,Motoboy,\"564,99\",VIVAD4YS\n57260,Cancelado,20/09/26 20:29,Luiz Lisboa,,Appmax,Motoboy,\"564,99\",VIVAD4YS\n57246,Entregue,20/09/26 10:29,vitoria vieira cruz,GoogleMerchant,Appmax,Frenet (Mandaê Rápido),\"600,94\",CUIDAN68S\n57228,Entregue,19/09/26 11:08,Eliane Bueno,FL_Google_pesquisa_Institucional,Pix,Frenet (Mandaê Econômico),\"794,59\",VIVAD4YS\n57071,Entregue,14/09/26 11:09,Jeferson Mourão Paixão,,Appmax,Frenet (Rodonaves),\"4.176,04\",VIVAD4YS\n57025,Entregue,12/09/26 13:40,Anna Maria Octaviano,GoogleMerchant,Pix,Frenet (Jamef),\"1.808,38\",DERMODJ4V\n56999,Entregue,11/09/26 17:39,Gabriel Mendonça,GoogleMerchant,Appmax,Frenet (Mandaê Econômico),\"593,85\",VIVAD4YS\n56995,Entregue,11/09/26 14:28,Tauana Mara Silva da Conceição,GoogleMerchant,Pix,Frenet (Mandaê Econômico),\"794,59\",VIVAD4YS\n56994,Cancelado,11/09/26 13:40,Tauana Mara Silva da Conceição,GoogleMerchant,Pix,Frenet (Mandaê Econômico),\"794,59\",VIVAD4YS\n56979,Entregue,10/09/26 21:07,DARIO GABRIEL TERRA LASSO,GoogleMerchant,Appmax,Frenet (Sedex),\"697,00\",CUIDAN68S\n56977,Entregue,10/09/26 17:59,Marisa Simões,FL_Google_pesquisa_Institucional,Appmax,Frenet (Mandaê Econômico),\"2.191,91\",DERMODJ4V\n56901,Entregue,07/09/26 09:18,Adriana pesce Salles Arcuri,GoogleMerchant,Pix,Motoboy,\"388,49\",MOVEBNSP\n56811,Entregue,01/09/26 23:10,Luiz Massahiro Kuniyoshi,GoogleMerchant,Pix,Frenet (Rodonaves),\"3.827,69\",VIVAD4YS\n56781,Entregue,31/08/26 17:22,Mariana Gomes Rangel,,Boleto Bancário,Frenet (Mandaê Econômico),\"632,05\",CUIDAN68S\n56776,Entregue,31/08/26 14:34,Ed. Biazetto 1537 Residencial,FL_google_pmax_ibramed,Pix,Frenet (Mandaê Econômico),\"610,95\",MOVEBNSP\n56772,Entregue,31/08/26 10:57,JOÃO RIBEIRO DA MOTA,GoogleMerchant,Pix,Frenet (Mandaê Econômico),\"1.303,93\",CUIDAN68S\n56771,Cancelado,31/08/26 09:40,Ed. Biazetto 1537 Residencial,FL-google-pmax-data-dupla,Pix,Frenet (Mandaê Econômico),\"610,95\",MOVEBNSP\n56749,Entregue,29/08/26 16:58,Ana Paula Malafaia Dias,GoogleMerchant,Pix,Frenet (Sedex),\"394,65\",DERMODJ4V\n56735,Entregue,28/08/26 15:36,Valéria Lopes,GoogleMerchant,Appmax,Frenet (Sedex),\"1.262,78\",MOVEBNSP\n56690,Cancelado,26/08/26 17:24,INTERCITY 7 DE SETEMBRO,GoogleMerchant,Pix,Frenet (Mandaê Econômico),\"488,21\",VIVAD4YS\n56682,Cancelado,26/08/26 14:10,AGENOR FERREIRA SAMPAIO,FL-google-pmax-data-dupla,Appmax,Frenet (Sedex),\"1.262,78\",MOVEBNSP\n56671,Cancelado,25/08/26 20:22,Meire de Fátima Gandolfi Gallo,FL-google-pmax-data-dupla,Appmax,Frenet (Sedex),\"1.252,78\",CUIDAN68S\n56648,Entregue,24/08/26 15:53,VINICIUS STACANELLI VALE,GoogleMerchant,Pix,Frenet (Mandaê Econômico),\"473,00\",MOVEBNSP\n56633,Entregue,23/08/26 14:28,MARTHA A M CAVALCANTE,FL_google_pmax_ibramed,Pix,Motoboy,\"514,49\",MOVEBNSP\n56598,Entregue,20/08/26 23:44,Andressa Cristina Portela,GoogleMerchant,Pix,Frenet (Sedex),\"503,91\",VIVAD4YS\n56592,Entregue,20/08/26 12:00,Claudio Braz Franca,FL_google_pmax_ibramed,Appmax,Frenet (Sedex),\"459,65\",CUIDAN68S\n56554,Entregue,17/08/26 16:30,Fernanda Barroso,GoogleMerchant,Appmax,Frenet (Rodonaves),\"907,38\",CUIDAN68S\n56551,Entregue,17/08/26 15:54,SEMIRAMIS MARCOLIN,GoogleMerchant,Appmax,Frenet (Mandaê Econômico),\"832,88\",VIVAD4YS\n56518,Cancelado,15/08/26 16:01,Diana de Jesus Santos,FL_google_pmax_profissionais_e_negocios,Appmax,Frenet (Jamef),\"3.788,28\",CUIDAN68S\n56517,Cancelado,15/08/26 15:45,Rita Santos,GoogleMerchant,Appmax,Frenet (Jamef),\"2.263,37\",VIVAD4YS\n56480,Entregue,13/08/26 17:19,Giovana Lemos,GoogleMerchant,Pix,Frenet (Rodonaves),\"1.213,72\",VIVAD4YS\n56458,Entregue,12/08/26 19:12,Janaína Stürmer Neto,GoogleMerchant,Pix,Frenet (Mandaê Econômico),\"498,32\",DERMODJ4V\n56442,Entregue,11/08/26 20:31,NOELI GARCIA FERNANDES,GoogleMerchant,Pix,Frenet (Sedex),\"550,08\",MOVEBNSP\n";
+const SHEET_ID="1nb9V_VeOJJuCrY9PIK2JAIlGhXs2mOIuSFWIzDoNvIs", SHEET_URL="https://docs.google.com/spreadsheets/d/"+SHEET_ID+"/edit?gid=1439733072";
+const DRIVE="Google Drive", DRIVE_TOOL="download_file_content", INPUT={fileId:SHEET_ID,exportMimeType:"text/csv"};
+const LS="roleta-dellamed:ultima-leitura";
+
+const fmt=v=>v.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
+const fmtK=v=>v>=1000?"R$ "+(v/1000).toLocaleString("pt-BR",{maximumFractionDigits:1})+" mil":fmt(v);
+const pct=v=>(v*100).toLocaleString("pt-BR",{maximumFractionDigits:0})+"%";
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const norm=s=>(s||"").normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().replace(/\s+/g," ").trim();
+const sum=a=>a.reduce((s,d)=>s+d.v,0);
+function group(s){const n=norm(s);if(["pago","faturado","enviado","entregue","aprovado","concluido","em separacao","em producao"].some(k=>n.includes(k)))return "ok";if(n.includes("cancel"))return "bad";if(n.includes("devolvido")||n.includes("estorn"))return "ret";return "wait";}
+
+let D=[], F={st:"all",rl:""}, sort={k:"t",dir:-1};
+let sync={state:"loading",msg:"",at:null,busy:true,rows:0};
+
+/* ---------- leitura ---------- */
+function parseCSV(text){text=text.replace(/^﻿/,"");const out=[];let row=[],cur="",q=false;
+  for(let i=0;i<text.length;i++){const c=text[i];
+    if(q){if(c=='"'){if(text[i+1]=='"'){cur+='"';i++}else q=false}else cur+=c;}
+    else if(c=='"')q=true;else if(c==","){row.push(cur);cur="";}
+    else if(c=="\n"||c=="\r"){if(c=="\r"&&text[i+1]=="\n")i++;row.push(cur);out.push(row);row=[];cur="";}
+    else cur+=c;}
+  if(cur||row.length){row.push(cur);out.push(row);}return out.filter(r=>r.some(x=>x.trim()));}
+function toRows(text){
+  const R=parseCSV(text);if(!R.length)return [];
+  const h=R[0].map(norm),f=fn=>h.findIndex(fn);
+  const ix={id:f(x=>x==="#"||x.startsWith("pedido")),st:f(x=>x.includes("situa")||x.includes("status")),dt:f(x=>x.startsWith("data")),
+    cl:f(x=>x.includes("cliente")),utm:f(x=>x.includes("utm")||x.includes("marketplace")),pg:f(x=>x.includes("pagamento")),
+    ev:f(x=>x.includes("envio")||x.includes("frete")),tt:f(x=>x.includes("total")),cp:f(x=>x.includes("cupom"))};
+  if(ix.id<0||ix.st<0||ix.dt<0||ix.tt<0)throw {code:"parse",message:"Não achei as colunas #, Situação, Data e Total na primeira linha da planilha."};
+  const g=(r,i)=>i<0?"":(r[i]||"").trim(),p=n=>String(n).padStart(2,"0");
+  const seen={};
+  return R.slice(1).map(r=>{
+    const m=g(r,ix.dt).match(/(\d{1,2})\/(\d{1,2})\/(\d{2,4})(?:\D+(\d{1,2}):(\d{2}))?/);const id=g(r,ix.id);
+    if(!id||!m||seen[id])return null;seen[id]=1;
+    let v=g(r,ix.tt).replace(/[^\d,.-]/g,"");if(v.includes(","))v=v.replace(/\./g,"").replace(",",".");
+    const y=m[3].length===2?2000+ +m[3]:+m[3],hh=+(m[4]||0),mi=+(m[5]||0);
+    const cup=g(r,ix.cp).toUpperCase().replace(/\s+/g,""),info=CUPONS[cup];
+    const st=g(r,ix.st),cli=g(r,ix.cl).replace(/\s+/g," ");
+    return {id,st,g:group(st),t:new Date(y,m[2]-1,+m[1],hh,mi).getTime(),dt:`${p(m[1])}/${p(m[2])}/${String(y).slice(-2)} ${p(hh)}:${p(mi)}`,
+      day:`${y}-${p(m[2])}-${p(m[1])}`,dd:`${p(m[1])}/${p(m[2])}`,cli,ck:norm(cli),utm:g(r,ix.utm),pag:g(r,ix.pg)||"—",env:g(r,ix.ev)||"—",
+      v:parseFloat(v)||0,cupom:cup,roleta:info?cup:"X",premio:info?info.premio:0};
+  }).filter(Boolean);
+}
+function markReps(list){
+  const byC={};list.forEach(d=>{d.rep=null;(byC[d.ck]=byC[d.ck]||[]).push(d);});
+  Object.values(byC).forEach(a=>{const good=a.filter(d=>d.g!=="bad"),rest=[];
+    a.filter(d=>d.g==="bad").forEach(b=>{const near=good.filter(g=>Math.abs(g.t-b.t)<=72*3600e3).sort((x,y)=>Math.abs(x.t-b.t)-Math.abs(y.t-b.t))[0];if(near)b.rep=near.id;else rest.push(b);});
+    rest.sort((x,y)=>y.t-x.t);rest.slice(1).forEach(b=>b.rep=rest[0].id);});
+  return list.sort((a,b)=>b.t-a.t);
+}
+function b64utf8(s){const bin=atob(s);const u=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);return new TextDecoder("utf-8").decode(u);}
+function load(text,at,fromCache){
+  D=markReps(toRows(text));
+  if(!fromCache&&!D.length){D=markReps(toRows(SEED));sync={...sync,state:"seed",at,busy:false,rows:0,msg:"A planilha ainda está vazia. Mostrando os pedidos dos 4 CSVs enviados em 28/09 até ela ser preenchida."};renderAll();return;}sync={...sync,state:fromCache?"cached":"live",at,busy:false,rows:D.length,msg:fromCache?sync.msg:""};
+  if(!fromCache){try{localStorage.setItem(LS,JSON.stringify({text,at}));}catch(e){}}
+  renderAll();
+}
+function applyResult(res){
+  const p=res&&res.payload;const txt=p&&typeof p==="object"&&typeof p.content==="string"?b64utf8(p.content):typeof p==="string"?p:null;
+  if(txt==null)throw {code:"parse",message:"O Google Drive respondeu num formato inesperado."};
+  load(txt,res.cache&&res.cache.storedAt?res.cache.storedAt:Date.now(),false);
+}
+function errMsg(e){switch(e&&e.code){
+  case "server_not_connected":case "server_not_found":return "O Google Drive não está conectado na sua conta. Adicione em claude.ai → Configurações → Conectores e clique em Atualizar agora.";
+  case "needs_reauth":return "A conexão com o Google Drive expirou. Reconecte em claude.ai → Configurações → Conectores.";
+  case "selection_required":return "Você tem mais de uma conta do Google Drive conectada. Escolha qual usar no aviso do Claude e clique em Atualizar agora.";
+  case "not_in_manifest":case "consent_required":return "O acesso ao Google Drive não foi permitido para esta página. Clique em Atualizar agora para ser perguntado de novo.";
+  case "blocked_by_policy":case "approval_required":return "A política da sua organização bloqueia o Google Drive aqui.";
+  case "not_granted":case "capability_disabled":case "capability_removed":return "Esta visualização não consegue usar conectores. Abra a página no claude.ai.";
+  case "server_unavailable":case "rate_limited":return "O Google Drive não respondeu agora. Tente de novo em alguns segundos.";
+  case "tool_error":return "O Google Drive recusou a leitura. Confira se a planilha está compartilhada com a conta do Google Drive conectada no seu claude.ai.";
+  case "parse":return e.message;
+  default:return "Não foi possível ler a planilha. "+((e&&e.message)||"");}}
+const RETRACT=["needs_reauth","server_not_connected","blocked_by_policy","approval_required","not_in_manifest"];
+function onError(e){
+  if(RETRACT.includes(e&&e.code)&&sync.state==="live"){D=[];sync.state="none";renderAll();}
+  sync={...sync,busy:false,msg:errMsg(e)};renderSync();
+  if(sync.state==="loading"){D=markReps(toRows(SEED));sync.state="seed";renderAll();}
+}
+/* Link CSV da planilha publicada (Arquivo → Compartilhar → Publicar na Web → .csv) */
+const CSV_URL="https://docs.google.com/spreadsheets/d/e/2PACX-1vT5AGCLVKPEH6Iq7Xh2qCtZi6jRbENJE9Zy4AbJzZUSDNnw1UiMQxPXxQyzC5lhSRQBPVUZu-Ds0OtP/pub?gid=1439733072&single=true&output=csv";
+let MCP=true;
+async function fetchCSV(){
+  const r=await fetch(CSV_URL+(CSV_URL.includes("?")?"&":"?")+"t="+Date.now(),{cache:"no-store"});
+  if(!r.ok)throw {code:"http",message:"A planilha publicada respondeu com erro "+r.status+"."};
+  return r.text();
+}
+async function start(){
+  try{const c=JSON.parse(localStorage.getItem(LS)||"null");if(c&&c.text){load(c.text,c.at,true);}}catch(e){}
+  await refreshNow();
+  setInterval(refreshNow,300000);
+}
+async function refreshNow(){
+  sync.busy=true;sync.msg="";renderSync();
+  try{load(await fetchCSV(),Date.now(),false);}
+  catch(e){sync.busy=false;sync.msg=(e&&e.message)?"Não consegui ler a planilha agora. "+e.message:"Não consegui ler a planilha agora. Confira a internet ou se a planilha continua publicada na Web.";
+    if(sync.state==="loading"){D=markReps(toRows(SEED));sync.state="seed";}renderAll();}
+}
+
+/* ---------- render ---------- */
+const tip=document.getElementById("tip");
+function showTip(e,h){tip.innerHTML=h;tip.hidden=false;const x=Math.min(e.clientX+14,innerWidth-tip.offsetWidth-8);tip.style.left=x+"px";tip.style.top=(e.clientY+14)+"px";}
+function hideTip(){tip.hidden=true;}
+function tableRows(){return D.filter(d=>(F.st==="all"||(F.st==="ok"?d.g==="ok":d.g==="bad"))&&(!F.rl||(F.rl==="X"?d.roleta==="X":d.cupom===F.rl)));}
+function rows(){return tableRows().filter(d=>!d.rep);}
+
+function renderSync(){
+  const el=document.getElementById("sync");
+  const when=sync.at?new Date(sync.at).toLocaleString("pt-BR",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"}):null;
+  const st=sync.busy?`<span class="pill p-wait">Lendo a planilha…</span>`:sync.state==="live"?`<span class="pill p-ok">Atualizado · lida em ${when}</span>`:
+    sync.state==="cached"?`<span class="pill p-ret">Última leitura salva · ${when}</span>`:sync.state==="seed"?`<span class="pill p-ret">Cópia dos CSVs de 28/09</span>`:`<span class="pill p-bad">Sem leitura</span>`;
+  const txt=sync.state==="live"?`${sync.rows} ${sync.rows===1?"linha":"linhas"} na planilha. Atualiza sozinha a cada 5 minutos enquanto a página estiver aberta.`:"Os dados vêm da planilha publicada no Google Sheets.";
+  el.innerHTML=`<div class="syncrow">${st}<span class="synctxt">${txt}</span>
+    <button id="btnSync" ${sync.busy||!MCP?"disabled":""}>Atualizar agora</button><a href="${SHEET_URL}" target="_blank" rel="noopener">Abrir planilha</a></div>${sync.msg?`<p class="syncerr">${esc(sync.msg)}</p>`:""}`;
+  document.getElementById("btnSync").addEventListener("click",refreshNow);
+}
+function renderPrizes(){
+  document.getElementById("prizes").innerHTML=`<div class="prize"><b>Prêmios da roleta</b>${Object.entries(CUPONS).map(([k,c])=>`<div><span>${k}</span><span>${fmt(c.premio)}</span></div>`).join("")}</div>`;
+  document.getElementById("f-rl").innerHTML=`<option value="">Todos os cupons</option>`+Object.entries(CUPONS).map(([k,c])=>`<option value="${k}">${fmt(c.premio)} · ${k}</option>`).join("")+`<option value="X">Outros cupons</option>`;
+}
+function header(){
+  const days=D.map(d=>d.day).sort(),n=D.filter(d=>!d.rep).length;
+  document.getElementById("period").textContent=days.length?(()=>{const a=days[0].split("-"),b=days.at(-1).split("-");return `${a[2]}/${a[1]} a ${b[2]}/${b[1]}/${b[0]} · ${n} pedidos (${D.length} linhas)`;})():
+    sync.state==="loading"?"Carregando a planilha…":"Nenhum pedido ainda";
+}
+function kpis(R){
+  const ok=R.filter(d=>d.g==="ok"),bad=R.filter(d=>d.g==="bad"),wait=R.filter(d=>d.g==="wait"||d.g==="ret");
+  const desc=ok.reduce((s,d)=>s+d.premio,0),rev=sum(ok);
+  const tiles=[
+    {c:"hero",l:"Faturamento aprovado",v:fmt(rev),n:`${ok.length} pedidos · ${new Set(ok.map(d=>d.ck)).size} clientes`},
+    {l:"Desconto concedido",v:fmt(desc),n:desc?`R$ ${(rev/desc).toLocaleString("pt-BR",{maximumFractionDigits:1})} faturados por R$ 1 de desconto`:"Soma dos prêmios usados em pedidos aprovados"},
+    {l:"Ticket médio aprovado",v:ok.length?fmt(rev/ok.length):"–",n:ok.length?`Prêmio médio ${fmt(desc/ok.length)}`:"Pago, faturado, enviado ou entregue"},
+    {l:"Taxa de aprovação",v:R.length?pct(ok.length/R.length):"–",n:`${bad.length} cancelados de ${R.length} pedidos`}
+  ];
+  document.getElementById("kpis").innerHTML=tiles.map(t=>`<div class="kpi ${t.c||""}"><div class="lab">${t.l}</div><div class="val">${t.v}</div><div class="note">${t.n}</div></div>`).join("");
+}
+function alertBox(){
+  document.getElementById("alert").hidden=true;return;
+  const bad=D.filter(d=>d.g==="bad"&&(!F.rl||(F.rl==="X"?d.roleta==="X":d.cupom===F.rl))),byId={};D.forEach(d=>byId[d.id]=d);const el=document.getElementById("alert");
+  if(!bad.length){el.hidden=true;return;}el.hidden=false;
+  const G={};bad.forEach(d=>{const tgt=d.rep?byId[d.rep]:d,closed=tgt.g!=="bad",k=d.ck+"|"+(closed?"c":"l")+tgt.id;
+    (G[k]=G[k]||{n:d.cli,c:0,v:d.v,cupom:d.cupom,pag:new Set(),closed,tgt}).c++;G[k].pag.add(d.pag);});
+  const all=Object.values(G),lost=all.filter(x=>!x.closed).sort((a,b)=>b.v-a.v),saved=all.filter(x=>x.closed).sort((a,b)=>b.c-a.c);
+  const line=x=>{const t=x.tgt;const p=!x.closed?`<span class="pill p-bad">Não converteu</span>`:t.g==="ok"?`<span class="pill p-ok">Fechou #${t.id} (${esc(t.st.toLowerCase())})</span>`:`<span class="pill p-wait">Novo pedido #${t.id} (${esc(t.st.toLowerCase())})</span>`;
+    return `<div><b>${esc(x.n)}</b><span>${x.c} ${x.c===1?"tentativa":"tentativas"} · ${fmt(x.v)} · ${esc(x.cupom||"sem cupom")} · ${[...x.pag].map(esc).join(", ")}</span>${p}</div>`;};
+  el.innerHTML=`<h2>${bad.length} ${bad.length===1?"linha cancelada vira":"linhas canceladas viram"} ${lost.length} ${lost.length===1?"cancelamento real":"cancelamentos reais"}</h2>
+    <p>${lost.length?`${lost.length===1?"O cliente que ganhou o cupom e não fechou soma":`Os ${lost.length} clientes que ganharam o cupom e não fecharam somam`} ${fmt(lost.reduce((s,x)=>s+x.v,0))}: ${lost.length===1?"vale o televendas chamar":"são os que vale o televendas chamar"}.`:"Todos os clientes que cancelaram refizeram o pedido."} ${saved.length?(saved.length===1?"Outro cliente cancelou só como nova tentativa e refez o pedido.":`Outros ${saved.length} clientes cancelaram só como nova tentativa e refizeram o pedido.`):""}</p>
+    <div class="retry">${lost.length?`<div class="grp">Perda real</div>`+lost.map(line).join(""):""}${saved.length?`<div class="grp">Refez o pedido</div>`+saved.map(line).join(""):""}</div>`;
+}
+function daily(R){
+  const W=560,H=230,L=46,Rp=8,T=10,B=28,days=[...new Set(D.map(d=>d.day))].sort(),el=document.getElementById("daily");
+  if(!days.length){el.innerHTML="";return;}
+  const all=[];for(let t=new Date(days[0]+"T12:00");t<=new Date(days.at(-1)+"T12:00");t.setDate(t.getDate()+1))all.push(t.toISOString().slice(0,10));
+  const by=all.map(day=>{const x=R.filter(d=>d.day===day);return{dd:day.slice(8)+"/"+day.slice(5,7),ok:sum(x.filter(d=>d.g==="ok")),wait:sum(x.filter(d=>d.g==="wait"||d.g==="ret")),bad:sum(x.filter(d=>d.g==="bad")),n:x.length};});
+  const max=Math.max(1,...by.map(b=>b.ok+b.wait+b.bad)),nice=[500,1000,2000,5000,10000,20000,50000,100000],step=nice.find(s=>max/s<=5)||200000,top=Math.ceil(max/step)*step;
+  const y=v=>T+(H-T-B)*(1-v/top),bw=(W-L-Rp)/by.length,w=Math.min(40,Math.max(3,bw*0.62)),every=Math.max(1,Math.ceil(by.length/7));
+  let s=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Faturamento por dia">`;
+  for(let v=0;v<=top;v+=step)s+=`<line x1="${L}" x2="${W-Rp}" y1="${y(v)}" y2="${y(v)}" stroke="var(--grid)"/><text x="${L-6}" y="${y(v)+3.5}" text-anchor="end">${v?(v>=1000?(v/1000)+"k":v):"0"}</text>`;
+  by.forEach((b,i)=>{const cx=L+bw*i+bw/2,x=cx-w/2;let base=0;
+    [["ok","var(--good)"],["wait","var(--warn)"],["bad","var(--bad)"]].forEach(([k,c])=>{const v=b[k];if(!v)return;const y1=y(base+v),y0=y(base);s+=`<rect x="${x}" y="${y1}" width="${w}" height="${Math.max(1,y0-y1-(base?2:0))}" rx="${w>6?2:1}" fill="${c}"/>`;base+=v;});
+    s+=`<rect class="hit" data-i="${i}" x="${L+bw*i}" y="${T}" width="${bw}" height="${H-T-B}" fill="transparent"/>`;
+    if(i%every===0)s+=`<text x="${cx}" y="${H-10}" text-anchor="middle">${b.dd}</text>`;});
+  s+=`<line x1="${L}" x2="${W-Rp}" y1="${y(0)}" y2="${y(0)}" stroke="var(--line)"/></svg>`;el.innerHTML=s;
+  el.querySelectorAll(".hit").forEach(r=>{const b=by[+r.dataset.i];r.addEventListener("mousemove",e=>showTip(e,`<b>${b.dd}</b> · ${b.n} pedido${b.n===1?"":"s"}<br>Aprovado ${fmt(b.ok)}<br>Aguardando/devolvido ${fmt(b.wait)}<br>Cancelado ${fmt(b.bad)}`));r.addEventListener("mouseleave",hideTip);});
+}
+function stackRows(elId,groups,label){
+  const el=document.getElementById(elId);if(!groups.length){el.innerHTML=`<p class="hint">Nenhum pedido neste filtro.</p>`;return;}
+  const max=Math.max(1,...groups.map(g=>g.tot));
+  el.innerHTML=groups.map((g,i)=>`<div class="hrow" data-i="${i}"><div class="nm">${g.k}</div><div class="track" style="width:${Math.max(2,g.tot/max*100)}%">${g.seg.filter(s=>s.v>0).map(s=>`<span style="flex:${s.v};background:${s.c}"></span>`).join("")}</div><div class="v">${label(g)}</div></div>`).join("");
+  el.querySelectorAll(".hrow").forEach(r=>{const g=groups[+r.dataset.i];r.addEventListener("mousemove",e=>showTip(e,g.tip));r.addEventListener("mouseleave",hideTip);});
+}
+function porPremio(R){
+  const m={};R.forEach(d=>{const k=d.roleta==="X"?(d.cupom||"Sem cupom"):d.cupom;(m[k]=m[k]||[]).push(d);});
+  const g=Object.entries(m).map(([k,x])=>{const ok=x.filter(d=>d.g==="ok"),w=x.filter(d=>d.g==="wait"||d.g==="ret"),b=x.filter(d=>d.g==="bad"),c=CUPONS[k];
+    return{k:c?`${fmt(c.premio)} <span class="cupom">${esc(k)}</span>`:`<span class="cupom">${esc(k)}</span>`,ord:c?c.premio:9999,tot:sum(x),seg:[{v:sum(ok),c:"var(--good)"},{v:sum(w),c:"var(--warn)"},{v:sum(b),c:"var(--bad)"}],okv:sum(ok),okn:ok.length,n:x.length,
+      tip:`<b>${esc(k)}</b>${c?` · prêmio ${fmt(c.premio)}`:" · cupom fora da roleta"}<br>${x.length} pedidos · ${ok.length} aprovados<br>Aprovado ${fmt(sum(ok))}<br>Cancelado ${fmt(sum(b))}`};}).sort((a,b)=>a.ord-b.ord);
+  stackRows("porPremio",g,x=>`${fmtK(x.okv)} · ${x.okn}/${x.n}`);
+}
+function porRoleta(R){
+  const ok=R.filter(d=>d.g==="ok"),m={};ok.forEach(d=>(m[d.cupom||"Sem cupom"]=m[d.cupom||"Sem cupom"]||[]).push(d));
+  const g=Object.entries(m).map(([k,x])=>{const rev=sum(x),desc=x.reduce((s,d)=>s+d.premio,0),c=CUPONS[k];
+    return{k:c?`${fmt(c.premio)} <span class="cupom">${esc(k)}</span>`:`<span class="cupom">${esc(k)}</span>`,ord:c?c.premio:9999,tot:rev,seg:[{v:rev,c:"var(--s1)"}],rev,desc,n:x.length,
+      tip:`<b>${esc(k)}</b><br>${x.length} pedidos aprovados<br>Faturamento ${fmt(rev)}<br>Desconto ${fmt(desc)}${desc?`<br>R$ ${(rev/desc).toLocaleString("pt-BR",{maximumFractionDigits:1})} por R$ 1 de desconto`:""}`};}).sort((a,b)=>a.ord-b.ord);
+  stackRows("porRoleta",g,x=>x.desc?`${fmtK(x.rev)} · ${(x.rev/x.desc).toLocaleString("pt-BR",{maximumFractionDigits:0})}x`:`${fmtK(x.rev)} · ${x.n} ped.`);
+}
+function pagto(R){
+  const m={};R.forEach(d=>(m[d.pag]=m[d.pag]||[]).push(d));
+  const g=Object.entries(m).map(([k,x])=>{const ok=x.filter(d=>d.g==="ok").length,wt=x.filter(d=>d.g==="wait"||d.g==="ret").length;return{k:esc(k),tot:x.length,seg:[{v:ok,c:"var(--good)"},{v:wt,c:"var(--warn)"},{v:x.length-ok-wt,c:"var(--bad)"}],r:ok/x.length,ok,n:x.length,
+    tip:`<b>${esc(k)}</b><br>${ok} aprovados de ${x.length}`};}).sort((a,b)=>b.tot-a.tot);
+  stackRows("pagto",g,x=>`${pct(x.r)} · ${x.ok}/${x.n}`);
+}
+const pill=d=>`<span class="pill ${{ok:"p-ok",bad:"p-bad",wait:"p-wait",ret:"p-ret"}[d.g]}">${esc(d.st)}</span>`;
+const COLS=[["id","#"],["t","Data"],["st","Situação"],["cli","Cliente"],["cupom","Cupom"],["premio","Prêmio"],["pag","Pagamento"],["utm","Origem"],["v","Total"]];
+function table(){
+  const R=tableRows(),k=sort.k,S=[...R].sort((a,b)=>{const x=a[k],y=b[k];return(x>y?1:x<y?-1:0)*sort.dir;});
+  document.getElementById("thead").innerHTML=COLS.map(([c,l])=>`<th${c==="v"||c==="premio"?' style="text-align:right"':""}><button data-s="${c}">${l}</button></th>`).join("");
+  document.querySelectorAll("#thead button").forEach(b=>b.addEventListener("click",()=>{const s=b.dataset.s;sort.dir=sort.k===s?-sort.dir:(["v","t","premio"].includes(s)?-1:1);sort.k=s;table();}));
+  const rl=d=>d.roleta==="X"?'<span class="rl rl-x">fora da roleta</span>':"";
+  document.getElementById("tbody").innerHTML=S.map(d=>`<tr${d.rep?' class="isrep"':""}><td class="mono">${esc(d.id)}</td><td class="mono">${d.dt}</td>
+    <td>${pill(d)}${d.rep?`<div class="repnote">Tentativa de #${esc(d.rep)} · fora dos totais</div>`:""}</td><td>${esc(d.cli)}</td>
+    <td><span class="cupom">${esc(d.cupom||"—")}</span> ${rl(d)}</td><td class="num">${d.premio?fmt(d.premio):"—"}</td><td>${esc(d.pag)}</td>
+    <td class="utm">${esc(d.utm||"—")}</td><td class="num">${fmt(d.v)}</td></tr>`).join("");
+  const n=R.filter(d=>d.rep).length;
+  document.getElementById("tblhint").textContent=`${R.length} linhas${n?` · ${n} tentativas repetidas (esmaecidas) não entram nos totais`:""} · clique no cabeçalho para ordenar`;
+}
+function render(){const R=rows();kpis(R);alertBox();daily(R);porPremio(R);porRoleta(R);pagto(R);table();}
+function renderAll(){
+  header();renderSync();
+  const has=D.length>0;
+  document.getElementById("main").hidden=!has;
+  document.getElementById("empty").hidden=has||sync.state==="loading";
+  if(has)render();
+}
+document.querySelectorAll(".seg button").forEach(b=>b.addEventListener("click",()=>{F.st=b.dataset.f;document.querySelectorAll(".seg button").forEach(x=>x.setAttribute("aria-pressed",x===b));if(D.length)render();}));
+document.getElementById("f-rl").addEventListener("change",e=>{F.rl=e.target.value;if(D.length)render();});
+renderPrizes();renderAll();start();
+</script>
+
+</body></html>
